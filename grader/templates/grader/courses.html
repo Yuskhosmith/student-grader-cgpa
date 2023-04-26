@@ -1,0 +1,27 @@
+{% extends "grader/layout.html" %}
+
+{% block body %}
+<div class="r">
+    <h1>Courses</h1>
+    <table class="t">
+      <thead>
+        <tr>
+          <th>Course Code</th>
+          <th>Course Title</th>
+          <th>Unit</th>
+          <th>Type</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for course in courses %}
+          <tr>
+            <td><a href="{% url 'course' course.id %}">{{course.course_code}}</a></td>
+            <td><a href="{% url 'course' course.id %}">{{course.course_title}}</a></td>
+            <td><a href="{% url 'course' course.id %}">{{course.unit}}</a></td>
+            <td><a href="{% url 'course' course.id %}">{{course.type}}</a></td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}

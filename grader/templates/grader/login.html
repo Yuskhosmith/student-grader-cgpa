@@ -1,0 +1,31 @@
+{% extends "grader/layout.html" %}
+
+{% load static %}
+{% block body %}
+    <div class="log-container">
+        <div class="lgo-h">
+            <div class="lgo-img"><img src="{% static 'grader/img/lasu.png' %}" alt=""></div>
+            <h2>Login</h2>
+            {% if message %}
+                <p>{{ message }}</p>
+            {% endif %}
+        </div>
+        
+    
+        <div class="flex-container-col f_1">
+            <form class="flex-container-col flex-center f_1" action="{% url 'login' %}" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <input autofocus class="form-control" type="text" name="username" placeholder="ID">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="password" name="password" placeholder="Password">
+                </div>
+                <input type="hidden" name="next" value="{{ request.GET.next }}">
+                <input class="btn btn-p" type="submit" value="Login">
+            </form>
+            <p>Don't have an account? <a href="{% url 'register' %}">Register here.</a></p>
+        </div>
+    </div>
+    
+{% endblock %}

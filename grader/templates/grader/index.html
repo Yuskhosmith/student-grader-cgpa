@@ -1,0 +1,10 @@
+{% extends "grader/layout.html" %}
+
+{% block body %}
+<section class="hero">
+    <h1>Student Result Portal</h1>
+    <button><a href="{% url 'check_result' %}">Check Result</a></button>
+    <button><a href="{% url 'login' %}">Upload Result</a></button>
+</section>
+
+{% endblock %}

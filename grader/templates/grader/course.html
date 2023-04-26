@@ -1,0 +1,28 @@
+{% extends "grader/layout.html" %}
+
+{% block body %}
+<div class="r">
+  <h1>Results for {{ course.course_code }}</h1>
+  <table class="t">
+    <thead>
+      <tr>
+        <th>Matric Number</th>
+        <th>Test Score</th>
+        <th>Exam Score</th>
+        <th>Grade</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for result in course.course_result.all %}
+        <tr>
+          <td>{{ result.student.username }}</td>
+          <td>{{ result.test_score }}</td>
+          <td>{{ result.exam_score }}</td>
+          <td>{{ result.grade }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% endblock %}

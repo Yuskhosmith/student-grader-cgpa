@@ -1,0 +1,61 @@
+{% extends "grader/layout.html" %}
+{% load static %}
+
+{% block body %}
+{% load custom_filters %}
+<script src="{% static 'grader/js/bundle.min.js' %}"></script>
+<div class="r">
+    <div id="result">
+        <h1 style="padding: 8px 0;">Student ID: {{user.username}}</h1>
+        <table style="border-collapse: collapse; width: 100%; font-family: Arial, sans-serif; font-size: 14px; margin-bottom: 20px;">
+            <thead>
+                <tr>
+                    <th style="text-align: left; padding: 8px; border: 1px solid #ddd; background-color: #f2f2f2; font-weight: bold;">Course Code</th>
+                    <th style="text-align: left; padding: 8px; border: 1px solid #ddd; background-color: #f2f2f2; font-weight: bold;">Course Unit</th>
+                    <th style="text-align: left; padding: 8px; border: 1px solid #ddd; background-color: #f2f2f2; font-weight: bold;">Type</th>
+                    <th style="text-align: left; padding: 8px; border: 1px solid #ddd; background-color: #f2f2f2; font-weight: bold;">Grade</th>
+                    <th style="text-align: left; padding: 8px; border: 1px solid #ddd; background-color: #f2f2f2; font-weight: bold;">Credit Point</th>
+                </tr>
+            </thead>
+            <tbody>
+     
+                {% for result in results %}
+                    <tr>
+                        <td style="text-align: left; padding: 8px; border: 1px solid #ddd;">{{ result.course.course_code }}</td>
+                        <td style="text-align: left; padding: 8px; border: 1px solid #ddd;">{{ result.course.unit }}</td>
+                        <td style="text-align: left; padding: 8px; border: 1px solid #ddd;">{{ result.course.type }}</td>
+                        <td style="text-align: left; padding: 8px; border: 1px solid #ddd;">{{ result.grade }}</td>
+                        <td style="text-align: left; padding: 8px; border: 1px solid #ddd;">{{ result.grade | multiply:result.course.unit }}</td>
+                    </tr>
+                {% endfor %}
+                <tr>
+                    <td style="text-align: left; padding: 8px; border: 1px solid #ddd; background-color: #f2f2f2; font-weight: bold;">TNU: {{ tnu }}</td>
+                    <td style="text-align: left; padding: 8px; border: 1px solid #ddd; background-color: #f2f2f2; font-weight: bold;;">TCP: {{ tcp }}</td>
+                    <td style="text-align: left; padding: 8px; border: 1px solid #ddd; background-color: #f2f2f2; font-weight: bold;">GP: {{ gp }}</td>
+                    <td style="text-align: left; padding: 8px; border: 1px solid #ddd; background-color: #f2f2f2; font-weight: bold;">CGPA: {{ gp }}</td>
+                    <td style="text-align: left; padding: 8px; border: 1px solid #ddd; background-color: #f2f2f2; font-weight: bold;"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <button id="download-btn">Download PDF</button>
+    
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        document.getElementById('download-btn').addEventListener('click', () => {
+            const resultHtml = document.getElementById('result').innerHTML;
+            const opt = {
+                margin:       [0.5, 0.5, 0.5, 0.5], // specify margins in inches (top, left, bottom, right)
+                filename:     "{{user.username}}.pdf",
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2 },
+                jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+            };
+            html2pdf().from(resultHtml).set(opt).save();
+        });
+    });
+    
+</script>
+{% endblock %}
