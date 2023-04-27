@@ -8,9 +8,6 @@ I assume you already have python installed and you know how to use django, but e
 # open the project folder in terminal
 cd student-grader-cgpa
 
-# install project requirements
-pip install -r requirements.txt
-
 # create virtual environment
 py -m venv venv
 
