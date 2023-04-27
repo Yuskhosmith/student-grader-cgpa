@@ -11,6 +11,9 @@ cd student-grader-cgpa
 # create virtual environment
 py -m venv venv
 
+#activate virtual environment
+venv/scripts/activate
+
 # install requirements in your virtual env
 pip install -r requirements.txt
 
